@@ -27,3 +27,14 @@ The CareFlow event log will contain the following fields:
 | C001 | Registration | 2026-01-10 09:30:00 |
 | C001 | Diagnosis | 2026-01-10 10:15:00 |
 | C001 | Lab_Test | 2026-01-10 11:30:00 |
+
+
+
+## Timestamp Rules
+
+- Timestamp must contain both date and time.
+- Timestamp must use the format YYYY-MM-DD HH:MM:SS.
+- Timestamp cannot be empty.
+- All timestamps must use the same format.
+- Events belonging to a case should be ordered chronologically.
+- example 2026-01-10 09:30:00
