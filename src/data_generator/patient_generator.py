@@ -45,6 +45,10 @@ def generate_patients(num_patients):
 
 # Quick test — only runs if you execute this file directly
 if __name__ == "__main__":
-    events = generate_patients(5)
-    for event in events:
+    events = generate_patients(300)
+    # for event in events:
+    #     print(event)
+    print(f"Total events generated: {len(events)}")
+    print("Sample of first 10 events:")
+    for event in events[:10]:
         print(event)
