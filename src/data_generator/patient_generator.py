@@ -2,8 +2,8 @@
 # Generates patient journeys using the activity paths defined in activities.py
 
 import random
-from activities import NORMAL_PATH, INEFFICIENT_PATH
 from datetime import datetime, timedelta
+from activities import NORMAL_PATH, INEFFICIENT_PATH
 
 
 def generate_case_id(patient_number):
@@ -24,25 +24,6 @@ def generate_patient_journey():
         return INEFFICIENT_PATH
 
 
-def generate_patients(num_patients):
-    """
-    Generates a list of (Case_ID, Activity_Name) pairs for multiple patients.
-    Timestamps will be added in Day 3 — this is just the structure for now.
-    """
-    all_events = []
-
-    for i in range(1, num_patients + 1):
-        case_id = generate_case_id(i)
-        journey = generate_patient_journey()
-
-        for activity in journey:
-            all_events.append({
-                "Case_ID": case_id,
-                "Activity_Name": activity
-            })
-
-    return all_events
-
 def generate_timestamps(start_time, num_events):
     """
     Generates a list of chronological timestamps for one patient's journey.
@@ -55,7 +36,11 @@ def generate_timestamps(start_time, num_events):
         timestamps.append(current)
     return timestamps
 
+
 def generate_patients(num_patients):
+    """
+    Generates a list of (Case_ID, Activity_Name, Timestamp) events for multiple patients.
+    """
     all_events = []
     base_date = datetime(2026, 8, 1)  # any reference date works
 
@@ -63,7 +48,6 @@ def generate_patients(num_patients):
         case_id = generate_case_id(i)
         journey = generate_patient_journey()
 
-        # random start time for this patient, between 8 AM and 6 PM
         start_time = base_date + timedelta(
             hours=random.randint(8, 18),
             minutes=random.randint(0, 59)
@@ -79,6 +63,7 @@ def generate_patients(num_patients):
             })
 
     return all_events
+
 
 def check_path_distribution(num_patients=300):
     normal_count = 0
@@ -114,6 +99,7 @@ def validate_events(events):
 
     return errors
 
+
 # Quick test — only runs if you execute this file directly
 if __name__ == "__main__":
     events = generate_patients(300)
@@ -134,5 +120,3 @@ if __name__ == "__main__":
             print(err)
     else:
         print("[PASS] All events passed validation!")
-
-
