@@ -80,15 +80,59 @@ def generate_patients(num_patients):
 
     return all_events
 
+def check_path_distribution(num_patients=300):
+    normal_count = 0
+    inefficient_count = 0
+    for _ in range(num_patients):
+        journey = generate_patient_journey()
+        if journey == NORMAL_PATH:
+            normal_count += 1
+        else:
+            inefficient_count += 1
+    print(f"Normal paths: {normal_count} ({normal_count/num_patients*100:.1f}%)")
+    print(f"Inefficient paths: {inefficient_count} ({inefficient_count/num_patients*100:.1f}%)")
+
+
+def validate_events(events):
+    errors = []
+
+    for i, e in enumerate(events):
+        if not e.get("Case_ID"):
+            errors.append(f"Row {i}: Missing Case_ID")
+        if not e.get("Activity_Name"):
+            errors.append(f"Row {i}: Missing Activity_Name")
+        if not e.get("Timestamp"):
+            errors.append(f"Row {i}: Missing Timestamp")
+
+    events_by_case = {}
+    for e in events:
+        events_by_case.setdefault(e["Case_ID"], []).append(e["Timestamp"])
+
+    for case_id, timestamps in events_by_case.items():
+        if timestamps != sorted(timestamps):
+            errors.append(f"{case_id}: Timestamps not in chronological order")
+
+    return errors
 
 # Quick test — only runs if you execute this file directly
 if __name__ == "__main__":
     events = generate_patients(300)
-    # for event in events:
-    #     print(event)
     print(f"Total events generated: {len(events)}")
-    print("Sample of first 10 events:")
+
+    print("\nSample of first 10 events:")
     for event in events[:10]:
         print(event)
+
+    print("\nPath distribution check:")
+    check_path_distribution()
+
+    print("\nValidation check:")
+    errors = validate_events(events)
+    if errors:
+        print(f"[FAIL] Found {len(errors)} issues:")
+        for err in errors[:10]:
+            print(err)
+    else:
+        print("[PASS] All events passed validation!")
 
 
