@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: stg_patient_events
+    description: "Staging model for CareFlow patient clinical events."
+
+    columns:
+      - name: Case_ID
+        description: "Unique identifier for a clinical case."
+        data_tests:
+          - not_null
+
+      - name: Activity_Name
+        description: "Clinical activity performed during the patient journey."
+        data_tests:
+          - not_null
+
+      - name: Timestamp
+        description: "Date and time when the clinical activity occurred."
+        data_tests:
+          - not_null
