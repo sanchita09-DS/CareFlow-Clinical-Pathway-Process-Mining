@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: careflow_raw
+    database: project-8aac59b5-de99-438d-ad8
+    schema: careflow_raw
+    tables:
+      - name: patient_events_raw
