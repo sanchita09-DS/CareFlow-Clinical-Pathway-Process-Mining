@@ -1,6 +1,7 @@
 # patient_generator.py
 # Generates patient journeys using the activity paths defined in activities.py
 
+import csv
 import random
 from datetime import datetime, timedelta
 from activities import NORMAL_PATH, INEFFICIENT_PATH
@@ -64,6 +65,15 @@ def generate_patients(num_patients):
 
     return all_events
 
+def export_to_csv(events, filename="patient_events.csv"):
+    """
+    Saves the generated events to a CSV file that can be uploaded to BigQuery.
+    """
+    with open(filename, mode="w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["Case_ID", "Activity_Name", "Timestamp"])
+        writer.writeheader()
+        writer.writerows(events)
+    print(f"Exported {len(events)} events to {filename}")
 
 def check_path_distribution(num_patients=300):
     normal_count = 0
@@ -120,3 +130,5 @@ if __name__ == "__main__":
             print(err)
     else:
         print("[PASS] All events passed validation!")
+
+    export_to_csv(events, "../../data/samples/patient_events.csv")
