@@ -2,6 +2,8 @@ import pandas as pd
 import pm4py
 from pm4py.algo.discovery.inductive import algorithm as inductive_miner
 
+from pm4py.visualization.process_tree import visualizer as tree_visualizer
+
 INPUT_FILE = "data/samples/stg_patient_events.csv"
 
 df = pd.read_csv(INPUT_FILE)
@@ -26,3 +28,8 @@ process_tree = inductive_miner.apply(event_log)
 
 print("\nProcess model discovered successfully.")
 print(process_tree)
+
+gviz = tree_visualizer.apply(process_tree)
+tree_visualizer.save(gviz, "data/samples/discovered_process_tree.png")
+
+print("Process tree saved to data/samples/discovered_process_tree.png")
