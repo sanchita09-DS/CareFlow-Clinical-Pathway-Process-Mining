@@ -1,0 +1,3 @@
+variant_rank,variant,case_count,percentage
+1,Registration -> Triage -> Doctor -> Discharge,232,77.33
+2,Registration -> Triage -> Doctor -> X-Ray -> Triage -> Doctor -> Discharge,68,22.67
