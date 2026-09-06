@@ -1,0 +1,6 @@
+transition,transition_count,average_minutes,minimum_minutes,maximum_minutes
+X-Ray -> Triage,68,27.09,10.0,40.0
+Doctor -> Discharge,300,25.59,10.0,40.0
+Registration -> Triage,300,25.13,10.0,40.0
+Triage -> Doctor,368,24.83,10.0,40.0
+Doctor -> X-Ray,68,24.66,10.0,40.0

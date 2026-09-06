@@ -1,0 +1,10 @@
+metric,value
+Total cases,300
+Unique variants,2
+Rework cases,68
+Standard pathway cases,232
+X-Ray pathway cases,68
+Standard pathway average duration (min),75.07
+X-Ray pathway average duration (min),153.81
+Longest average transition,X-Ray -> Triage
+Longest average transition time (min),27.09
