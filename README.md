@@ -75,8 +75,6 @@ See [`sql/bigquery/validation_queries.sql`](sql/bigquery/validation_queries.sql)
 
 **Current dataset status:** 300 patients, 1,404 events, fully validated (no NULLs, chronological order confirmed).
 
-
-
 ---
 
 ## Week 3 — Bottleneck Analysis & Power BI Dashboard
@@ -124,3 +122,23 @@ Investigate the handoff and waiting process between **X-Ray and Triage** first, 
 ### Week 3 Conclusion
 
 The analysis shows that loop-back journeys are substantially longer than normal journeys, with an average additional duration of **78.74 minutes**. The **X-Ray -> Triage** transition has the largest observed average delay at **27.1 minutes**.
+## dbt Transformation (Sachita)
+
+### Project
+- **Dataset:** `careflow_dbt_uscentral1`
+- **Staging model:** `stg_patient_events`
+
+### What it does
+Takes the raw event data from `careflow_raw.patient_events_raw` and produces a clean staging view (`stg_patient_events`) ready for Week 2's process mining analysis.
+
+### How to run it
+```bash
+cd dbt/careflow_dbt
+dbt run
+```
+
+### Validation
+```sql
+SELECT COUNT(*) FROM `project-8aac59b5-de99-438d-ad8.careflow_dbt_uscentral1.stg_patient_events`;
+```
+**Result:** 1,404 rows — exact match with the raw table, confirming no data loss through the pipeline.
