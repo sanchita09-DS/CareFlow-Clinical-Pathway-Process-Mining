@@ -75,6 +75,53 @@ See [`sql/bigquery/validation_queries.sql`](sql/bigquery/validation_queries.sql)
 
 **Current dataset status:** 300 patients, 1,404 events, fully validated (no NULLs, chronological order confirmed).
 
+---
+
+## Week 3 — Bottleneck Analysis & Power BI Dashboard
+
+Week 3 focuses on quantifying the additional time associated with loop-back patient journeys and identifying the transition with the largest observed delay.
+
+### Journey Duration Findings
+
+| Pathway | Patients | Average Duration (min) | Median Duration (min) |
+|---|---:|---:|---:|
+| Normal | 232 | 75.07 | 76 |
+| Loop-back | 68 | 153.81 | 154 |
+
+Loop-back journeys take an average of **78.74 additional minutes** compared with normal journeys.
+
+### Loop-back Pathway
+
+The loop-back pathway is:
+
+`Registration -> Triage -> Doctor -> X-Ray -> Triage -> Doctor -> Discharge`
+
+It occurs in **68 of 300 cases (22.67%)**.
+
+### Bottleneck
+
+The transition with the largest observed average delay is:
+
+**X-Ray -> Triage: 27.1 minutes**
+
+This is the primary bottleneck identified from the observed event data. The result identifies the largest observed transition delay but does not by itself establish the root cause.
+
+### Power BI Dashboard
+
+The Week 3 dashboard includes:
+
+- Extra time due to loop-back
+- Average journey duration by pathway type
+- Patient pathway distribution
+- Top 10 longest patient journeys
+
+### Recommendation
+
+Investigate the handoff and waiting process between **X-Ray and Triage** first, while also examining the broader loop-back pathway.
+
+### Week 3 Conclusion
+
+The analysis shows that loop-back journeys are substantially longer than normal journeys, with an average additional duration of **78.74 minutes**. The **X-Ray -> Triage** transition has the largest observed average delay at **27.1 minutes**.
 ## dbt Transformation (Sachita)
 
 ### Project
