@@ -107,6 +107,31 @@ cases_with_missing_tokens = sum(
     for result in replayed_traces
 )
 
+# Fitness comparison
+conforming_fitness = [
+    result["trace_fitness"]
+    for result in replayed_traces
+    if result["trace_is_fit"]
+]
+
+non_conforming_fitness = [
+    result["trace_fitness"]
+    for result in replayed_traces
+    if not result["trace_is_fit"]
+]
+
+average_conforming_fitness = (
+    sum(conforming_fitness) / len(conforming_fitness)
+    if conforming_fitness
+    else 0
+)
+
+average_non_conforming_fitness = (
+    sum(non_conforming_fitness) / len(non_conforming_fitness)
+    if non_conforming_fitness
+    else 0
+)
+
 
 # --------------------------------------------------
 # 6. Display results
@@ -121,6 +146,8 @@ print(f"Conforming cases:          {conforming_cases}")
 print(f"Non-conforming cases:      {non_conforming_cases}")
 print(f"Conformance rate:          {conformance_rate:.2f}%")
 print(f"Average trace fitness:     {average_fitness:.4f}")
+print(f"Conforming avg fitness:    {average_conforming_fitness:.4f}")
+print(f"Non-conforming avg fitness:{average_non_conforming_fitness:.4f}")
 print(
     f"Cases with missing tokens: {cases_with_missing_tokens}"
 )
