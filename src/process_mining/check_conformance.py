@@ -126,3 +126,43 @@ print(
 )
 
 print("=" * 50)
+
+# ==================================================
+# DEVIATION ANALYSIS
+# ==================================================
+
+# Sort events chronologically within each case
+sorted_df = df.sort_values(
+    ["case:concept:name", "time:timestamp"]
+).reset_index(drop=True)
+
+# Build chronological activity sequence for each case
+case_sequences = (
+    sorted_df.groupby("case:concept:name")["concept:name"]
+    .apply(list)
+)
+
+# Identify cases containing the X-Ray loop-back
+loopback_sequence = [
+    "Registration",
+    "Triage",
+    "Doctor",
+    "X-Ray",
+    "Triage",
+    "Doctor",
+    "Discharge",
+]
+
+loopback_cases = case_sequences[
+    case_sequences.apply(lambda x: x == loopback_sequence)
+]
+
+print("\n==================================================")
+print("DEVIATION ANALYSIS")
+print("==================================================")
+print(f"X-Ray loop-back cases:     {len(loopback_cases)}")
+print(f"Percentage of all cases:   {len(loopback_cases) / len(case_sequences) * 100:.2f}%")
+print("Deviation pattern:")
+print("Registration -> Triage -> Doctor -> X-Ray")
+print("-> Triage -> Doctor -> Discharge")
+print("==================================================")
