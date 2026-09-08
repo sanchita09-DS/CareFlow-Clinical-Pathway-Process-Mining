@@ -1,70 +1,75 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <pnml>
-  <net id="imdf_net_1788844636.7371001" type="http://www.pnml.org/version-2009/grammar/pnmlcoremodel">
+  <net id="CareFlow Ideal Process" type="http://www.pnml.org/version-2009/grammar/pnmlcoremodel">
     <name>
-      <text>imdf_net_1788844636.7371001</text>
+      <text>CareFlow Ideal Process</text>
     </name>
     <page id="n0">
-      <place id="source">
+      <place id="start">
         <name>
-          <text>source</text>
+          <text>start</text>
         </name>
         <initialMarking>
           <text>1</text>
         </initialMarking>
       </place>
-      <place id="p_3">
+      <place id="doctor">
         <name>
-          <text>p_3</text>
+          <text>doctor</text>
         </name>
       </place>
-      <place id="p_4">
+      <place id="discharge">
         <name>
-          <text>p_4</text>
+          <text>discharge</text>
         </name>
       </place>
-      <place id="sink">
+      <place id="registration">
         <name>
-          <text>sink</text>
+          <text>registration</text>
         </name>
       </place>
-      <place id="p_5">
+      <place id="triage">
         <name>
-          <text>p_5</text>
+          <text>triage</text>
         </name>
       </place>
-      <transition id="4aebb3c4-4f79-45ff-91d1-6f1bf072bbd4">
+      <place id="end">
+        <name>
+          <text>end</text>
+        </name>
+      </place>
+      <transition id="registration_transition">
         <name>
           <text>Registration</text>
         </name>
       </transition>
-      <transition id="f2401a4b-4705-4364-8249-01a2a885412e">
-        <name>
-          <text>Discharge</text>
-        </name>
-      </transition>
-      <transition id="f45a59df-e023-4aec-99a7-e6b9e70ed68e">
+      <transition id="doctor_transition">
         <name>
           <text>Doctor</text>
         </name>
       </transition>
-      <transition id="a00b1b6f-ace2-42ab-ad8e-e716e33267ef">
+      <transition id="discharge_transition">
+        <name>
+          <text>Discharge</text>
+        </name>
+      </transition>
+      <transition id="triage_transition">
         <name>
           <text>Triage</text>
         </name>
       </transition>
-      <arc id="2331182451456" source="p_4" target="f45a59df-e023-4aec-99a7-e6b9e70ed68e"/>
-      <arc id="2331182450848" source="a00b1b6f-ace2-42ab-ad8e-e716e33267ef" target="p_4"/>
-      <arc id="2328430562304" source="p_5" target="f2401a4b-4705-4364-8249-01a2a885412e"/>
-      <arc id="2331181970528" source="f2401a4b-4705-4364-8249-01a2a885412e" target="sink"/>
-      <arc id="2331182613232" source="source" target="4aebb3c4-4f79-45ff-91d1-6f1bf072bbd4"/>
-      <arc id="2331182628944" source="p_3" target="a00b1b6f-ace2-42ab-ad8e-e716e33267ef"/>
-      <arc id="2331182022032" source="4aebb3c4-4f79-45ff-91d1-6f1bf072bbd4" target="p_3"/>
-      <arc id="2328430646704" source="f45a59df-e023-4aec-99a7-e6b9e70ed68e" target="p_5"/>
+      <arc id="2230219131040" source="triage_transition" target="triage"/>
+      <arc id="2227332500480" source="doctor" target="discharge_transition"/>
+      <arc id="2230218650720" source="discharge_transition" target="end"/>
+      <arc id="2230219309136" source="start" target="registration_transition"/>
+      <arc id="2230219131344" source="triage" target="doctor_transition"/>
+      <arc id="2230218702224" source="registration_transition" target="registration"/>
+      <arc id="2230218702544" source="registration" target="triage_transition"/>
+      <arc id="2230218374128" source="doctor_transition" target="doctor"/>
     </page>
     <finalmarkings>
       <marking>
-        <place idref="sink">
+        <place idref="end">
           <text>1</text>
         </place>
       </marking>
