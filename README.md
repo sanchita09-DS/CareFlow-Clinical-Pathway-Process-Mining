@@ -122,6 +122,80 @@ Investigate the handoff and waiting process between **X-Ray and Triage** first, 
 ### Week 3 Conclusion
 
 The analysis shows that loop-back journeys are substantially longer than normal journeys, with an average additional duration of **78.74 minutes**. The **X-Ray -> Triage** transition has the largest observed average delay at **27.1 minutes**.
+---
+
+## Week 4 — Conformance Checking & Final Dashboard
+
+Week 4 compares actual patient journeys against an ideal clinical pathway and measures how often real cases deviate from the expected process.
+
+### Ideal Clinical Pathway
+
+The reference process is:
+
+`Registration -> Triage -> Doctor -> Discharge`
+
+The ideal process contains no loop-backs.
+
+### Conformance Results
+
+| Metric | Result |
+|---|---:|
+| Total cases | 300 |
+| Conforming cases | 232 |
+| Non-conforming cases | 68 |
+| Conformance rate | 77.33% |
+| Average trace fitness | 0.9676 |
+| Conforming average fitness | 1.0000 |
+| Non-conforming average fitness | 0.8571 |
+
+### Identified Deviation
+
+The non-conforming cases follow this loop-back pattern:
+
+`Registration -> Triage -> Doctor -> X-Ray -> Triage -> Doctor -> Discharge`
+
+This deviation occurs in **68 of 300 cases (22.67%)**.
+
+### Loop-back Cost
+
+| Pathway | Average Duration |
+|---|---:|
+| Normal | 75.07 minutes |
+| Loop-back | 153.81 minutes |
+
+Loop-back journeys take an average of **78.74 additional minutes** compared with normal journeys.
+
+### Primary Observed Bottleneck
+
+The largest observed transition delay is:
+
+**X-Ray -> Triage — 27.09 minutes average**
+
+This identifies the transition as a priority area for operational investigation. The analysis does not by itself establish the root cause.
+
+### Final Power BI Dashboard
+
+The final dashboard combines:
+
+- Conformance Rate
+- Non-Conforming Cases
+- Extra Loop-back Time
+- Normal vs Loop-back journey duration
+- Patient pathway distribution
+- Longest patient journeys
+- Key operational findings
+
+Dashboard file:
+
+`powerbi/careflow_dashboard.pbix`
+
+### Week 4 Conclusion
+
+CareFlow now compares actual clinical journeys with an ideal reference process.
+
+The final analysis shows that **77.33% of cases conform to the ideal pathway**, while **22.67% contain the identified X-Ray loop-back**. These loop-back journeys take **78.74 minutes longer on average**, providing a measurable operational impact for further investigation.
+
+For detailed Week 4 findings, see [`docs/week4_findings.md`](docs/week4_findings.md).
 ## dbt Transformation (Sachita)
 
 ### Project

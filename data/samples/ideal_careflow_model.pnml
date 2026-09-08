@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<pnml>
+  <net id="CareFlow Ideal Process" type="http://www.pnml.org/version-2009/grammar/pnmlcoremodel">
+    <name>
+      <text>CareFlow Ideal Process</text>
+    </name>
+    <page id="n0">
+      <place id="start">
+        <name>
+          <text>start</text>
+        </name>
+        <initialMarking>
+          <text>1</text>
+        </initialMarking>
+      </place>
+      <place id="doctor">
+        <name>
+          <text>doctor</text>
+        </name>
+      </place>
+      <place id="discharge">
+        <name>
+          <text>discharge</text>
+        </name>
+      </place>
+      <place id="registration">
+        <name>
+          <text>registration</text>
+        </name>
+      </place>
+      <place id="triage">
+        <name>
+          <text>triage</text>
+        </name>
+      </place>
+      <place id="end">
+        <name>
+          <text>end</text>
+        </name>
+      </place>
+      <transition id="registration_transition">
+        <name>
+          <text>Registration</text>
+        </name>
+      </transition>
+      <transition id="doctor_transition">
+        <name>
+          <text>Doctor</text>
+        </name>
+      </transition>
+      <transition id="discharge_transition">
+        <name>
+          <text>Discharge</text>
+        </name>
+      </transition>
+      <transition id="triage_transition">
+        <name>
+          <text>Triage</text>
+        </name>
+      </transition>
+      <arc id="2230219131040" source="triage_transition" target="triage"/>
+      <arc id="2227332500480" source="doctor" target="discharge_transition"/>
+      <arc id="2230218650720" source="discharge_transition" target="end"/>
+      <arc id="2230219309136" source="start" target="registration_transition"/>
+      <arc id="2230219131344" source="triage" target="doctor_transition"/>
+      <arc id="2230218702224" source="registration_transition" target="registration"/>
+      <arc id="2230218702544" source="registration" target="triage_transition"/>
+      <arc id="2230218374128" source="doctor_transition" target="doctor"/>
+    </page>
+    <finalmarkings>
+      <marking>
+        <place idref="end">
+          <text>1</text>
+        </place>
+      </marking>
+    </finalmarkings>
+  </net>
+</pnml>
