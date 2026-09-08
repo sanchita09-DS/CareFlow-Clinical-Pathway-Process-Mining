@@ -75,8 +75,6 @@ See [`sql/bigquery/validation_queries.sql`](sql/bigquery/validation_queries.sql)
 
 **Current dataset status:** 300 patients, 1,404 events, fully validated (no NULLs, chronological order confirmed).
 
-
-
 ---
 
 ## Week 3 — Bottleneck Analysis & Power BI Dashboard
@@ -198,3 +196,23 @@ CareFlow now compares actual clinical journeys with an ideal reference process.
 The final analysis shows that **77.33% of cases conform to the ideal pathway**, while **22.67% contain the identified X-Ray loop-back**. These loop-back journeys take **78.74 minutes longer on average**, providing a measurable operational impact for further investigation.
 
 For detailed Week 4 findings, see [`docs/week4_findings.md`](docs/week4_findings.md).
+## dbt Transformation (Sachita)
+
+### Project
+- **Dataset:** `careflow_dbt_uscentral1`
+- **Staging model:** `stg_patient_events`
+
+### What it does
+Takes the raw event data from `careflow_raw.patient_events_raw` and produces a clean staging view (`stg_patient_events`) ready for Week 2's process mining analysis.
+
+### How to run it
+```bash
+cd dbt/careflow_dbt
+dbt run
+```
+
+### Validation
+```sql
+SELECT COUNT(*) FROM `project-8aac59b5-de99-438d-ad8.careflow_dbt_uscentral1.stg_patient_events`;
+```
+**Result:** 1,404 rows — exact match with the raw table, confirming no data loss through the pipeline.
